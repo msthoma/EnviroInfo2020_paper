@@ -33,9 +33,9 @@ bar_chart2 <-
     axis.title = element_text(size = 13),
     axis.text = element_text(size = 13),
     axis.title.x = element_blank(),
-    legend.key.size = unit(0.5, units = "cm"),
-    legend.text = element_text(size = 9),
-    legend.position = c(0.9, 0.85)
+    legend.key.size = unit(0.3, units = "cm"),
+    legend.text = element_text(size = 8),
+    legend.position = c(0.92, 0.92)
   )
 
 bar_chart2
