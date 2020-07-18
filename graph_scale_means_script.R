@@ -5,7 +5,7 @@ gs4_deauth()
 
 
 results <-
-  read_sheet(ss = sheet_id, sheet = worksheet_name, range = range)
+  read_sheet(ss = sheet_id, sheet = worksheet_name, range = scales_range)
 
 categories <-
   c("Excellent", "Good", "Above Average", "Below Average", "Bad")
@@ -45,3 +45,14 @@ ggsave(
   height = 8,
   units = "cm"
 )
+
+demographics <-
+  read_sheet(ss = sheet_id, sheet = worksheet_name, range = dem_range)
+output <- c(
+  paste("\\newcommand\\TotalResponses{", demographics$total_responses, "}", sep = ""),
+  paste("\\newcommand\\TotalFemale{", demographics$total_female, "}", sep = ""),
+  paste("\\newcommand\\TotalMale{", demographics$total_male, "}", sep = "")
+)
+f <- file("stats.tex")
+writeLines(output, f)
+close(f)
