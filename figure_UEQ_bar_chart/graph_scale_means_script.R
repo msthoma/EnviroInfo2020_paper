@@ -3,7 +3,7 @@ library(ggplot2)
 gs4_deauth()
 
 # import sensitive information such as Google spreadsheet id, range to import, etc.
-source("vars.R")
+source("figure_UEQ_bar_chart/vars.R")
 
 # get results from Google spreadsheet
 results <-
