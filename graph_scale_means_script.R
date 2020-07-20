@@ -1,19 +1,22 @@
-source("vars.R")
 library(googlesheets4)
 library(ggplot2)
 gs4_deauth()
 
+# import sensitive information such as Google spreadsheet id, range to import, etc.
+source("vars.R")
 
+# get results from Google spreadsheet
 results <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = scales_range)
 
 categories <-
   c("Excellent", "Good", "Above Average", "Below Average", "Bad")
 color_scale <-
-  c("#00cc00", "#66ff66", "#92d050", "#ffc000", "#ff0000")
+  c("#00cc00", "#66ff66", "#92d050", "#ffc000", "#ff0000") # colors taken from Schrepp et al., 2014
 
 results$Category <- factor(results$Category, levels = categories)
 
+# create bar chart with imported results with ggplot2
 bar_chart2 <-
   ggplot(results, aes(x = Scale, y = Mean, fill = Category)) +
   geom_bar(stat = "identity") +
@@ -39,6 +42,8 @@ bar_chart2 <-
   )
 
 bar_chart2
+
+# save chart as pdf
 ggsave(
   "live_means_bar_chart.pdf",
   width = 20,
@@ -46,6 +51,7 @@ ggsave(
   units = "cm"
 )
 
+# script below exports live stats from google spreadsheet to .tex file, which can be referenced in the latex file for live updating
 demographics <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = dem_range)
 output <- c(
