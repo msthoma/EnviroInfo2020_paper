@@ -1,10 +1,10 @@
-<mxfile host="app.diagrams.net" modified="2020-07-29T07:21:11.935Z" agent="5.0 (X11)" etag="PjlVX-hWxUwVslBHX1gd" version="13.5.4" type="github">
+<mxfile host="app.diagrams.net" modified="2020-07-29T07:22:02.986Z" agent="5.0 (X11)" etag="WjZw5NnprvXvqB6xlowU" version="13.5.4" type="github">
   <diagram id="cJk_MExXZ5MZByAaaHan" name="Page-1">
     <mxGraphModel dx="400" dy="276" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="tbjmIAKjKc2VE-8m2J3d-10" value="&lt;div&gt;Remote crowd-sourcing &lt;br&gt;&lt;/div&gt;&lt;div&gt;platform (iNicosia)&lt;br&gt;&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;align=center;strokeWidth=1;verticalAlign=middle;spacingBottom=0;fillColor=#B85450;spacingTop=35;spacingLeft=8;" parent="1" vertex="1">
+        <mxCell id="tbjmIAKjKc2VE-8m2J3d-10" value="&lt;div&gt;Remote crowdsourcing &lt;br&gt;&lt;/div&gt;&lt;div&gt;platform (iNicosia)&lt;br&gt;&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;align=center;strokeWidth=1;verticalAlign=middle;spacingBottom=0;fillColor=#B85450;spacingTop=35;spacingLeft=8;" parent="1" vertex="1">
           <mxGeometry x="370" y="100" width="190" height="126" as="geometry" />
         </mxCell>
         <mxCell id="tbjmIAKjKc2VE-8m2J3d-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="tbjmIAKjKc2VE-8m2J3d-1" target="tbjmIAKjKc2VE-8m2J3d-2" edge="1">
