@@ -17,7 +17,7 @@ color_scale <-
 results$Category <- factor(results$Category, levels = categories)
 
 # create bar chart with imported results with ggplot2
-bar_chart2 <-
+bar_chart <-
   ggplot(results, aes(x = Scale, y = Mean, fill = Category)) +
   geom_bar(stat = "identity") +
   scale_fill_manual(name = "",
@@ -41,7 +41,7 @@ bar_chart2 <-
     legend.position = c(0.94, 0.92)
   )
 
-bar_chart2
+bar_chart
 
 # save chart as pdf
 ggsave(
