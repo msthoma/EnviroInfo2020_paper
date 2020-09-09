@@ -43,12 +43,37 @@ bar_chart <-
 
 bar_chart
 
+bar_chart_thin <-
+  ggplot(results, aes(x = Scale, y = Mean, fill = Category)) +
+  geom_bar(stat = "identity") +
+  ylab("Score") +
+  # expand_limits(x = 0, y = 0) +
+  scale_fill_manual(name = "",
+                    values = color_scale,
+                    drop = FALSE) +
+  scale_x_discrete(drop = FALSE) +
+  scale_y_continuous(breaks = c(0,1,2), expand = expansion(mult = c(0, .05))) +
+  geom_text(aes(label = round(Mean, 2)), vjust = 1.5) +
+  theme(
+    axis.ticks.length.x = unit(5, "points"),
+    panel.background = element_rect(fill = "white"),
+    axis.line.x = element_line(color = "black"),
+    axis.line.y = element_line(color = "black"),
+    axis.title = element_text(size = 13),
+    axis.text = element_text(size = 13),
+    axis.title.x = element_blank(),
+    legend.key.size = unit(0.4, units = "cm"),
+    legend.text = element_text(size = 9)
+  )
+
+bar_chart_thin
+
 # save chart as pdf
 ggsave(
-  "live_means_bar_chart.pdf",
-  plot = bar_chart,
-  width = 20,
-  height = 8,
+  "live_means_bar_chart_thin.pdf",
+  plot = bar_chart_thin,
+  width = 23,
+  height = 5,
   units = "cm"
 )
 
