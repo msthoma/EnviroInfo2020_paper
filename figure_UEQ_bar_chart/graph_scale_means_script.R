@@ -70,10 +70,10 @@ bar_chart_thin
 
 # save chart as pdf
 ggsave(
-  "live_means_bar_chart_thin.pdf",
-  plot = bar_chart_thin,
-  width = 23,
-  height = 5,
+  "live_means_bar_chart.pdf",
+  plot = bar_chart,
+  width = 20,
+  height = 8,
   units = "cm"
 )
 
