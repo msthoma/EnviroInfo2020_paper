@@ -153,7 +153,7 @@ p4
 dem_plots <- plot_grid(p1, p2, p3, p4, labels = "AUTO")
 
 ggsave(
-  "demographics_graphs.pdf",
+  "figure_UEQ_bar_chart/demographics_graphs.pdf",
   plot = dem_plots,
   width = 20,
   height = 11,
