@@ -3,10 +3,10 @@ library(ggplot2)
 library(cowplot)
 gs4_deauth()
 
-# import sensitive information such as Google spreadsheet id, range to import, etc.
+# import sensitive information such as Google spreadsheet id, rangea to import, etc.
 source("figure_UEQ_bar_chart/vars.R")
 
-# get results from Google spreadsheet
+# get evaluation results from Google spreadsheet
 results <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = scales_range)
 
@@ -44,11 +44,11 @@ bar_chart <-
 
 bar_chart
 
+# same version of the plot above, but thinner for use in single page abstract
 bar_chart_thin <-
   ggplot(results, aes(x = Scale, y = Mean, fill = Category)) +
   geom_bar(stat = "identity") +
   ylab("Score") +
-  # expand_limits(x = 0, y = 0) +
   scale_fill_manual(name = "",
                     values = color_scale,
                     drop = FALSE) +
@@ -91,7 +91,7 @@ writeLines(output, f)
 close(f)
 
 
-# Demographics graphs
+# make graphs regarding the demographics of the volunteers that particicpated in the evaluation
 genders <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = genders)
 
@@ -102,7 +102,6 @@ p1 <- ggplot(data=genders, aes(x=Gender, y=Number)) +
   ylab("# of volunteers") +
   geom_text(aes(label = Number), vjust = -1, size = 2)
 
-p1
 
 ages <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = ages)
@@ -116,7 +115,6 @@ p2 <- ggplot(data=ages, aes(x=Age, y=Number)) +
   xlab("Age groups") +
   geom_text(aes(label = Number), vjust = -1, size = 2)
 
-p2
 
 walking_duration <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = walking_duration)
@@ -148,8 +146,8 @@ p4 <- ggplot(data=tech_familiarity, aes(x=Tech_familiarity, y=Number, fill=Tech_
         legend.title = element_text(size=9)) +
   geom_text(aes(label = Number), vjust = -1, size = 2)
 
-p4
 
+# arrange all 4 graphs in a single figure and save as pdf
 dem_plots <- plot_grid(p1, p2, p3, p4, labels = "AUTO")
 
 ggsave(
@@ -159,16 +157,3 @@ ggsave(
   height = 11,
   units = "cm"
 )
-
-showCols <- function(cl=colors(), bg = "grey",
-                     cex = 0.75, rot = 30) {
-  m <- ceiling(sqrt(n <-length(cl)))
-  length(cl) <- m*m; cm <- matrix(cl, m)
-  require("grid")
-  grid.newpage(); vp <- viewport(w = .92, h = .92)
-  grid.rect(gp=gpar(fill=bg))
-  grid.text(cm, x = col(cm)/m, y = rev(row(cm))/m, rot = rot,
-            vp=vp, gp=gpar(cex = cex, col = cm))
-}
-
-showCols(cl= colors(), bg="gray33", rot=30, cex=0.75)
