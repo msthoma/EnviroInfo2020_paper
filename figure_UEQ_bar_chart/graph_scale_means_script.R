@@ -109,13 +109,14 @@ ages <-
 
 p2 <- ggplot(data=ages, aes(x=Age, y=Number)) + 
   geom_bar(stat="identity", fill="brown") + 
-  scale_x_discrete(limits = ages$Age)+
+  scale_x_discrete(limits = ages$Age, labels = c("< 18","18-24","25-34","35-44","45-54",bquote("" >= .(55)))) +
   scale_y_continuous(limits = c(0, 20), breaks = c(0,10,20)) +
   theme_bw() +
   ylab("# of volunteers") +
   xlab("Age groups") +
   geom_text(aes(label = Number), vjust = -1, size = 2)
 
+p2
 
 walking_duration <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = walking_duration)
@@ -137,16 +138,17 @@ p4 <- ggplot(data=tech_familiarity, aes(x=Tech_familiarity, y=Number, fill=Tech_
   scale_fill_gradient(name="Scale",low="red",high="darkgreen",labels=c("1 - Not familiar at all",2,3,4,5,6,"7 - Very familiar")) +
   geom_bar(stat="identity") +
   scale_y_continuous(limits = c(0, 20), breaks = c(0,10,20)) +
-  scale_x_continuous(limits = c(1, 7.5), breaks = c(1,2,3,4,5,6,7)) +
+  scale_x_continuous(limits = c(0.5, 7.5), breaks = c(1,2,3,4,5,6,7)) +
   theme_bw() +
   ylab("# of volunteers") +
   xlab("Familiarity with technology") +
-  theme(legend.position = c(0.25, 0.65),
+  theme(legend.position = c(0.23, 0.65),
         legend.key.size = unit(0.35, units = "cm"),
         legend.text = element_text(size = 8),
         legend.title = element_text(size=9)) +
   geom_text(aes(label = Number), vjust = -1, size = 2)
 
+p4
 
 dem_plots <- plot_grid(p1, p2, p3, p4, labels = "AUTO")
 
