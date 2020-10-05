@@ -1,5 +1,6 @@
 library(googlesheets4)
 library(ggplot2)
+library(cowplot)
 gs4_deauth()
 
 # import sensitive information such as Google spreadsheet id, range to import, etc.
@@ -88,3 +89,52 @@ output <- c(
 f <- file("stats.tex")
 writeLines(output, f)
 close(f)
+
+
+# Demographics graphs
+genders <-
+  read_sheet(ss = sheet_id, sheet = worksheet_name, range = genders)
+
+p1 <- ggplot(data=genders, aes(x=Gender, y=Number)) + 
+  geom_bar(stat="identity") +
+  scale_y_continuous(limits = c(0, 20), breaks = c(0,10,20)) +
+  theme_bw()
+
+
+ages <-
+  read_sheet(ss = sheet_id, sheet = worksheet_name, range = ages)
+
+p2 <- ggplot(data=ages, aes(x=Age, y=Number)) + geom_bar(stat="identity") + 
+  scale_x_discrete(limits = ages$Age)+
+  scale_y_continuous(limits = c(0, 20), breaks = c(0,10,20)) +
+  theme_bw()
+
+
+walking_duration <-
+  read_sheet(ss = sheet_id, sheet = worksheet_name, range = walking_duration)
+
+p3 <- ggplot(data=walking_duration, aes(x=Walking_duration, y=Number)) + 
+  geom_bar(stat="identity") +
+  scale_x_discrete(limits = walking_duration$Walking_duration) +
+  scale_y_continuous(limits = c(0, 20), breaks = c(0,10,20)) +
+  theme_bw()
+
+
+tech_familiarity <-
+  read_sheet(ss = sheet_id, sheet = worksheet_name, range = tech_familiarity)
+
+p4 <- ggplot(data=tech_familiarity, aes(x=Tech_familiarity, y=Number)) + 
+  geom_bar(stat="identity") +
+  scale_y_continuous(limits = c(0, 20), breaks = c(0,10,20)) +
+  theme_bw()
+
+
+dem_plots <- plot_grid(p1, p2, p3, p4, labels = "AUTO")
+
+ggsave(
+  "demographics_graphs.pdf",
+  plot = dem_plots,
+  width = 30,
+  height = 12,
+  units = "cm"
+)
