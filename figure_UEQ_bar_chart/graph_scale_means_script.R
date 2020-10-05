@@ -96,43 +96,56 @@ genders <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = genders)
 
 p1 <- ggplot(data=genders, aes(x=Gender, y=Number)) + 
-  geom_bar(stat="identity", fill="steelblue") +
+  geom_bar(stat="identity", fill="steelblue", width = 0.4) +
   scale_y_continuous(limits = c(0, 20), breaks = c(0,10,20)) +
-  theme_bw()
+  theme_bw() +
+  ylab("# of volunteers") +
+  geom_text(aes(label = Number), vjust = -1, size = 2)
 
+p1
 
 ages <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = ages)
 
-p2 <- ggplot(data=ages, aes(x=Age, y=Number)) + geom_bar(stat="identity") + 
+p2 <- ggplot(data=ages, aes(x=Age, y=Number)) + 
+  geom_bar(stat="identity", fill="brown") + 
   scale_x_discrete(limits = ages$Age)+
   scale_y_continuous(limits = c(0, 20), breaks = c(0,10,20)) +
-  theme_bw()
+  theme_bw() +
+  ylab("# of volunteers") +
+  xlab("Age groups") +
+  geom_text(aes(label = Number), vjust = -1, size = 2)
 
 
 walking_duration <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = walking_duration)
 
 p3 <- ggplot(data=walking_duration, aes(x=Walking_duration, y=Number)) + 
-  geom_bar(stat="identity") +
+  geom_bar(stat="identity", fill="chartreuse4") +
   scale_x_discrete(limits = walking_duration$Walking_duration) +
   scale_y_continuous(limits = c(0, 20), breaks = c(0,10,20)) +
-  theme_bw()
+  theme_bw() +
+  ylab("# of volunteers") +
+  xlab("Average walking duration per day") +
+  geom_text(aes(label = Number), vjust = -1, size = 2)
 
 
 tech_familiarity <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = tech_familiarity)
 
 p4 <- ggplot(data=tech_familiarity, aes(x=Tech_familiarity, y=Number, fill=Tech_familiarity)) + 
-  scale_fill_gradient(name="Familiarity with technology",low="red",high="darkgreen",labels=c("1 - Not familiar at all",2,3,4,5,6,"7 - Very familiar")) +
+  scale_fill_gradient(name="Scale",low="red",high="darkgreen",labels=c("1 - Not familiar at all",2,3,4,5,6,"7 - Very familiar")) +
   geom_bar(stat="identity") +
   scale_y_continuous(limits = c(0, 20), breaks = c(0,10,20)) +
   scale_x_continuous(limits = c(1, 7.5), breaks = c(1,2,3,4,5,6,7)) +
   theme_bw() +
+  ylab("# of volunteers") +
+  xlab("Familiarity with technology") +
   theme(legend.position = c(0.25, 0.65),
         legend.key.size = unit(0.35, units = "cm"),
         legend.text = element_text(size = 8),
-        legend.title = element_text(size=9))
+        legend.title = element_text(size=9)) +
+  geom_text(aes(label = Number), vjust = -1, size = 2)
 
 
 dem_plots <- plot_grid(p1, p2, p3, p4, labels = "AUTO")
@@ -144,3 +157,16 @@ ggsave(
   height = 11,
   units = "cm"
 )
+
+showCols <- function(cl=colors(), bg = "grey",
+                     cex = 0.75, rot = 30) {
+  m <- ceiling(sqrt(n <-length(cl)))
+  length(cl) <- m*m; cm <- matrix(cl, m)
+  require("grid")
+  grid.newpage(); vp <- viewport(w = .92, h = .92)
+  grid.rect(gp=gpar(fill=bg))
+  grid.text(cm, x = col(cm)/m, y = rev(row(cm))/m, rot = rot,
+            vp=vp, gp=gpar(cex = cex, col = cm))
+}
+
+showCols(cl= colors(), bg="gray33", rot=30, cex=0.75)
