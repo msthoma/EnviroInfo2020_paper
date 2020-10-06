@@ -71,7 +71,7 @@ bar_chart_thin
 
 # save chart as pdf
 ggsave(
-  "live_means_bar_chart.pdf",
+  "UEQ_results_bar_chart.pdf",
   plot = bar_chart,
   width = 20,
   height = 8,
