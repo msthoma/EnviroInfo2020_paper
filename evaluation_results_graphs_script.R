@@ -21,9 +21,7 @@ results$Category <- factor(results$Category, levels = categories)
 bar_chart <-
   ggplot(results, aes(x = Scale, y = Mean, fill = Category)) +
   geom_bar(stat = "identity") +
-  scale_fill_manual(name = "",
-                    values = color_scale,
-                    drop = FALSE) +
+  scale_fill_manual(name = "", values = color_scale, drop = FALSE) +
   scale_x_discrete(drop = FALSE) +
   scale_y_continuous(limits = c(-1, 3)) +
   geom_hline(aes(yintercept = 0)) +
@@ -49,11 +47,9 @@ bar_chart_thin <-
   ggplot(results, aes(x = Scale, y = Mean, fill = Category)) +
   geom_bar(stat = "identity") +
   ylab("Score") +
-  scale_fill_manual(name = "",
-                    values = color_scale,
-                    drop = FALSE) +
+  scale_fill_manual(name = "", values = color_scale, drop = FALSE) +
   scale_x_discrete(drop = FALSE) +
-  scale_y_continuous(breaks = c(0,1,2), expand = expansion(mult = c(0, .05))) +
+  scale_y_continuous(breaks = c(0, 1, 2), expand = expansion(mult = c(0, .05))) +
   geom_text(aes(label = round(Mean, 2)), vjust = 1.5) +
   theme(
     axis.ticks.length.x = unit(5, "points"),
@@ -82,9 +78,24 @@ ggsave(
 demographics <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = dem_range)
 output <- c(
-  paste("\\newcommand\\TotalResponses{", demographics$total_responses, "}", sep = ""),
-  paste("\\newcommand\\TotalFemale{", demographics$total_female, "}", sep = ""),
-  paste("\\newcommand\\TotalMale{", demographics$total_male, "}", sep = "")
+  paste(
+    "\\newcommand\\TotalResponses{",
+    demographics$total_responses,
+    "}",
+    sep = ""
+  ),
+  paste(
+    "\\newcommand\\TotalFemale{",
+    demographics$total_female,
+    "}",
+    sep = ""
+  ),
+  paste(
+    "\\newcommand\\TotalMale{",
+    demographics$total_male,
+    "}",
+    sep = ""
+  )
 )
 f <- file("stats.tex")
 writeLines(output, f)
@@ -95,9 +106,9 @@ close(f)
 genders <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = genders)
 
-p1 <- ggplot(data=genders, aes(x=Gender, y=Number)) + 
-  geom_bar(stat="identity", fill="steelblue", width = 0.4) +
-  scale_y_continuous(limits = c(0, 20), breaks = c(0,10,20)) +
+p1 <- ggplot(data = genders, aes(x = Gender, y = Number)) +
+  geom_bar(stat = "identity", fill = "steelblue", width = 0.4) +
+  scale_y_continuous(limits = c(0, 20), breaks = c(0, 10, 20)) +
   theme_bw() +
   ylab("# of volunteers") +
   geom_text(aes(label = Number), vjust = -1, size = 2)
@@ -106,10 +117,13 @@ p1 <- ggplot(data=genders, aes(x=Gender, y=Number)) +
 ages <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = ages)
 
-p2 <- ggplot(data=ages, aes(x=Age, y=Number)) + 
-  geom_bar(stat="identity", fill="brown") + 
-  scale_x_discrete(limits = ages$Age, labels = c("< 18","18-24","25-34","35-44","45-54",bquote("" >= .(55)))) +
-  scale_y_continuous(limits = c(0, 20), breaks = c(0,10,20)) +
+p2 <- ggplot(data = ages, aes(x = Age, y = Number)) +
+  geom_bar(stat = "identity", fill = "brown") +
+  scale_x_discrete(
+    limits = ages$Age,
+    labels = c("< 18", "18-24", "25-34", "35-44", "45-54", bquote("" >= .(55)))
+  ) +
+  scale_y_continuous(limits = c(0, 20), breaks = c(0, 10, 20)) +
   theme_bw() +
   ylab("# of volunteers") +
   xlab("Age groups") +
@@ -119,10 +133,11 @@ p2 <- ggplot(data=ages, aes(x=Age, y=Number)) +
 walking_duration <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = walking_duration)
 
-p3 <- ggplot(data=walking_duration, aes(x=Walking_duration, y=Number)) + 
-  geom_bar(stat="identity", fill="chartreuse4") +
+p3 <-
+  ggplot(data = walking_duration, aes(x = Walking_duration, y = Number)) +
+  geom_bar(stat = "identity", fill = "chartreuse4") +
   scale_x_discrete(limits = walking_duration$Walking_duration) +
-  scale_y_continuous(limits = c(0, 20), breaks = c(0,10,20)) +
+  scale_y_continuous(limits = c(0, 20), breaks = c(0, 10, 20)) +
   theme_bw() +
   ylab("# of volunteers") +
   xlab("Average walking duration per day") +
@@ -132,18 +147,28 @@ p3 <- ggplot(data=walking_duration, aes(x=Walking_duration, y=Number)) +
 tech_familiarity <-
   read_sheet(ss = sheet_id, sheet = worksheet_name, range = tech_familiarity)
 
-p4 <- ggplot(data=tech_familiarity, aes(x=Tech_familiarity, y=Number, fill=Tech_familiarity)) + 
-  scale_fill_gradient(name="Scale",low="red",high="darkgreen",labels=c("1 - Not familiar at all",2,3,4,5,6,"7 - Very familiar")) +
-  geom_bar(stat="identity") +
-  scale_y_continuous(limits = c(0, 20), breaks = c(0,10,20)) +
-  scale_x_continuous(limits = c(0.5, 7.5), breaks = c(1,2,3,4,5,6,7)) +
+p4 <-
+  ggplot(data = tech_familiarity,
+         aes(x = Tech_familiarity, y = Number, fill = Tech_familiarity)) +
+  scale_fill_gradient(
+    name = "Scale",
+    low = "red",
+    high = "darkgreen",
+    labels = c("1 - Not familiar at all", 2, 3, 4, 5, 6, "7 - Very familiar")
+  ) +
+  geom_bar(stat = "identity") +
+  scale_y_continuous(limits = c(0, 20), breaks = c(0, 10, 20)) +
+  scale_x_continuous(limits = c(0.5, 7.5),
+                     breaks = c(1, 2, 3, 4, 5, 6, 7)) +
   theme_bw() +
   ylab("# of volunteers") +
   xlab("Familiarity with technology") +
-  theme(legend.position = c(0.23, 0.65),
-        legend.key.size = unit(0.35, units = "cm"),
-        legend.text = element_text(size = 8),
-        legend.title = element_text(size=9)) +
+  theme(
+    legend.position = c(0.23, 0.65),
+    legend.key.size = unit(0.35, units = "cm"),
+    legend.text = element_text(size = 8),
+    legend.title = element_text(size = 9)
+  ) +
   geom_text(aes(label = Number), vjust = -1, size = 2)
 
 
